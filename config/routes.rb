@@ -6,12 +6,14 @@ Inhandy::Application.routes.draw do
   devise_for :users
   resources :users
   resources :products
+  resources :posts
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
   # Sample of regular route:
   match 'users/:id/posts' => 'users#posts'
+  match 'posts/:id/comments' => 'posts#comments'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
