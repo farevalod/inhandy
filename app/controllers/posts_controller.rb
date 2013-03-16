@@ -1,5 +1,13 @@
 class PostsController < ApplicationController
 
+  # GET /posts/sponsored.json
+  def sponsored
+    @posts = Post.where("sponsored = ?",1)
+    respond_to do |format|
+      #format.html # show.html.erb
+      format.json { render json: @posts }
+    end
+  end
   # GET /posts/:id/comments.json
   def comments
     @post = Post.find(params[:id])
