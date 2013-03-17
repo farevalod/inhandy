@@ -13,7 +13,10 @@ Inhandy::Application.routes.draw do
 
   # Sample of regular route:
   match 'users/:id/posts' => 'users#posts'
+  match 'users/:id/followers' => 'users#followers'
+  match 'users/:id/following' => 'users#following'
   match 'posts/:id/comments' => 'posts#comments'
+  match 'posts/sponsored' => 'posts#sponsored'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
