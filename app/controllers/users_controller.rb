@@ -1,16 +1,15 @@
 class UsersController < ApplicationController
 
-
-
   # GET /users/:id/posts.json
   def following
     @user = User.find(params[:id])
-	@following = @user.following
+	@following = @user.followed_users
     respond_to do |format|
       #format.html # show.html.erb
       format.json { render json: @following }
     end
   end
+  
   # GET /users/:id/posts.json
   def followers
     @user = User.find(params[:id])
@@ -20,6 +19,7 @@ class UsersController < ApplicationController
       format.json { render json: @followers }
     end
   end
+  
   # GET /users/:id/posts.json
   def posts
     @user = User.find(params[:id])
