@@ -6,6 +6,7 @@ Inhandy::Application.routes.draw do
   devise_for :users
   resources :users
   resources :products
+  match 'posts/sponsored' => 'posts#sponsored'
   resources :posts
 
   # The priority is based upon order of creation:
@@ -13,10 +14,15 @@ Inhandy::Application.routes.draw do
 
   # Sample of regular route:
   match 'users/:id/posts' => 'users#posts'
+  match 'users/:id/posts_num' => 'users#posts_num'
+  match 'users/:id/ratings' => 'users#ratings'
+  match 'users/:id/rating' => 'users#create_rating'
+  match 'users/:id/followers_num' => 'users#followers_num'
+  match 'users/:id/following_num' => 'users#following_num'
   match 'users/:id/followers' => 'users#followers'
+  match 'users/:id/follow/:followed_id' => 'users#create_relationship'
   match 'users/:id/following' => 'users#following'
   match 'posts/:id/comments' => 'posts#comments'
-  match 'posts/sponsored' => 'posts#sponsored'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 
   # GET /posts/sponsored.json
   def sponsored
-    @posts = Post.where("sponsored = ?",1)
+    @posts = Post.where("sponsored = ?",true)
     respond_to do |format|
       #format.html # show.html.erb
       format.json { render json: @posts }
@@ -21,7 +21,11 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+	if params[:rev] == "1"
+		@posts = Post.all(:order => "created_at ASC")
+	else
+		@posts = Post.all(:order => "created_at DESC")
+	end
 
     respond_to do |format|
       #format.html # index.html.erb

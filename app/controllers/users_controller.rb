@@ -1,6 +1,49 @@
 class UsersController < ApplicationController
 
-  # GET /users/:id/posts.json
+  # POST /users/:id/rating.json
+  def create_rating
+    @rating = Rating.new(params[:rating])
+
+    respond_to do |format|
+      if @rating.save
+        #format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render json: @rating, status: :created, location: @rating }
+      else
+        #format.html { render action: "new" }
+        format.json { render json: @rating.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # GET /users/:id/ratings.json
+  def ratings
+    @user = User.find(params[:id])
+	@ratings = @user.ratings
+    respond_to do |format|
+      #format.html # show.html.erb
+      format.json { render json: @following }
+    end
+  end
+  # GET /users/:id/following_num.json
+  def following_num
+    @user = User.find(params[:id])
+	@following = @user.followed_users.count
+    respond_to do |format|
+      #format.html # show.html.erb
+      format.json { render json: @following }
+    end
+  end
+  
+  # GET /users/:id/followers_num.json
+  def followers_num
+    @user = User.find(params[:id])
+	@followers = @user.followers.count
+    respond_to do |format|
+      #format.html # show.html.erb
+      format.json { render json: @followers }
+    end
+  end
+  # GET /users/:id/following.json
   def following
     @user = User.find(params[:id])
 	@following = @user.followed_users
@@ -10,7 +53,7 @@ class UsersController < ApplicationController
     end
   end
   
-  # GET /users/:id/posts.json
+  # GET /users/:id/followers.json
   def followers
     @user = User.find(params[:id])
 	@followers = @user.followers
@@ -20,10 +63,36 @@ class UsersController < ApplicationController
     end
   end
   
+  # POST /users/:id/follow/:followed_id.json
+  def create_relationship
+    @relationship = Relationship.new(:follower_id => params[:id], :followed_id => params[:followed_id])
+  respond_to do |format|
+      if @relationship.save
+        #format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render json: @relationship, status: :created, location: @relationship }
+      else
+        #format.html { render action: "new" }
+        format.json { render json: @relationship.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  # GET /users/:id/posts_num.json
+  def posts_num
+    @user = User.find(params[:id])
+	@num_posts = @user.posts.count
+    respond_to do |format|
+      #format.html # show.html.erb
+      format.json { render json: @num_posts }
+    end
+  end
   # GET /users/:id/posts.json
   def posts
     @user = User.find(params[:id])
 	@posts = @user.posts
+	@posts.each do |p|
+		p.word_score = p.word_score
+	end
     respond_to do |format|
       #format.html # show.html.erb
       format.json { render json: @posts }
