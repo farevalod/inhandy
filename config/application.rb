@@ -58,5 +58,10 @@ module Inhandy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+	# Device 2.2 json enabling
+	config.to_prepare do
+	   DeviseController.respond_to :html, :json
+	end
   end
 end
