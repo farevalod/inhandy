@@ -4,6 +4,7 @@ Inhandy::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   devise_for :users
+  match 'users/find' => 'users#find'
   resources :users
   resources :products
   match 'posts/sponsored' => 'posts#sponsored'

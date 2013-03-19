@@ -1,5 +1,14 @@
 class UsersController < ApplicationController
 
+  # POST /users/find
+  def find
+	@user = User.find_by_email(params[:email])
+    respond_to do |format|
+	  #format.html { redirect_to @user, notice: 'User was successfully created.' }
+      format.json { render json: @user.id}
+	end
+  end
+
   # POST /users/:id/rating.json
   def create_rating
     @rating = Rating.new(params[:rating])
